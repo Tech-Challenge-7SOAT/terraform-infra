@@ -2,14 +2,6 @@ resource "aws_security_group" "rdstest_db_sg" {
   name        = "rdstest_db_sg"
   vpc_id      = aws_vpc.rdstest_vpc.id
 
-  ingress {
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    ipv6_cidr_blocks = ["::/0"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -20,6 +12,22 @@ resource "aws_security_group" "rdstest_db_sg" {
   tags = {
     Name = "rdstest_db_sg"
   }
+}
+
+resource "aws_security_group_rule" "github_ip" {
+  for_each          = toset(data.github_ip_ranges.github.hooks)
+  type              = "ingress"
+  from_port         = 5432
+  to_port           = 5432
+  protocol          = "tcp"
+
+  # Use cidr_blocks for IPv4 addresses
+  cidr_blocks       = can(regex("^.*:.*$", each.value)) ? [] : [each.value]
+
+  # Use ipv6_cidr_blocks for IPv6 addresses
+  ipv6_cidr_blocks  = can(regex("^.*:.*$", each.value)) ? [each.value] : []
+
+  security_group_id = aws_security_group.rdstest_db_sg.id
 }
 
 resource "aws_db_subnet_group" "rdstest_db_subnet_gp" {

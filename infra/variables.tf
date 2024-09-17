@@ -64,3 +64,9 @@ variable "db_subnet_cidr_block_2" {
   type        = string
   default     = "10.0.0.128/25"
 }
+
+variable "GIT_TOKEN" {
+  description = "Token for github"
+  type        = string
+  sensitive   = true
+}
