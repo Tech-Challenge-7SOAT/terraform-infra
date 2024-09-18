@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket = "terraform-deploy-fiap2024"
+    key    = "backend/terraform.tfstate"
+    region = "us-east-1"
+  }
+}
+
 resource "aws_db_instance" "rdstest" {
   identifier           = "rdstest"
   allocated_storage    = 5
