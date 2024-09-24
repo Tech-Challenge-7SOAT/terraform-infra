@@ -7,7 +7,7 @@ terraform {
 }
 
 resource "aws_api_gateway_rest_api" "fastfood_api_gtw" {
-  name        = "fastfood_api_gtw"
+  name        = var.api_name
   description = "FastFood API Gateway"
 
   tags = {
@@ -37,9 +37,38 @@ resource "aws_api_gateway_method" "gtw_method" {
   authorizer_id = aws_api_gateway_authorizer.lambda_authorizer.id
 }
 
-resource "aws_api_gateway_integration" "gtw_integration" {
+resource "aws_api_gateway_integration" "mock_integration" {
   rest_api_id = aws_api_gateway_rest_api.fastfood_api_gtw.id
   resource_id = aws_api_gateway_resource.gtw_resource.id
   http_method = aws_api_gateway_method.gtw_method.http_method
-  type        = "MOCK"
+
+  type = "MOCK"
 }
+
+#resource "aws_apigatewayv2_vpc_link" "fastfood_gtw_vpc_link" {
+#  name        = "${var.api_name}-vpc_link"
+#
+#  security_group_ids = [var.SG_ID]
+#  subnet_ids = [var.SUBNET_AZ_1, var.SUBNET_AZ_2, var.PRIVATE_SUBNET_1, var.PRIVATE_SUBNET_2]
+#
+#  target_arns = [var.NLB_LISTENER]
+#
+#  tags = {
+#    Name = "fastfood_gtw_vpc_link"
+#  }
+#}
+#
+#resource "aws_api_gateway_integration" "gtw_integration" {
+#  rest_api_id = aws_api_gateway_rest_api.fastfood_api_gtw.id
+#  resource_id = aws_api_gateway_resource.gtw_resource.id
+#  http_method = aws_api_gateway_method.gtw_method.http_method
+#
+#  type                    = "HTTP_PROXY"
+#  integration_http_method = "ANY"
+#  uri                     = "http://mockapi.io/v1/your_mock_endpoint" //uri = "http://${aws_eks_cluster.your_cluster.endpoint}"
+#
+#  connection_type = "VPC_LINK"
+#  connection_id   = aws_apigatewayv2_vpc_link.fastfood_gtw_vpc_link.id
+#
+#  passthrough_behavior = "WHEN_NO_MATCH"
+#}

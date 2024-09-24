@@ -40,8 +40,8 @@ jobs:
 
       # Plan the Terraform deployment
       - name: Terraform Plan
-        run: terraform plan -var "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" -var "AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }}" -var "AWS_SESSION_TOKEN=${{ env.AWS_SESSION_TOKEN }}" -var "AWS_REGION=${{ env.AWS_REGION }}"
+        run: terraform plan -var "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" -var "AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }}" -var "AWS_SESSION_TOKEN=${{ env.AWS_SESSION_TOKEN }}" -var "AWS_REGION=${{ env.AWS_REGION }}" -var "SG_ID=${{ secrets.SG_ID }}"  -var "SUBNET_AZ_1=${{ secrets.SUBNET_AZ_1 }}" -var "SUBNET_AZ_2=${{ secrets.SUBNET_AZ_2 }}" -var "PRIVATE_SUBNET_1=${{ secrets.PRIVATE_SUBNET_1 }}"  -var "PRIVATE_SUBNET_2=${{ secrets.PRIVATE_SUBNET_2 }}"
 
       # Apply the Terraform configuration
       - name: Terraform Apply
-        run: terraform apply --auto-approve -var "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" -var "AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }}" -var "AWS_SESSION_TOKEN=${{ env.AWS_SESSION_TOKEN }}" -var "AWS_REGION=${{ env.AWS_REGION }}"
+        run: terraform apply --auto-approve -var "AWS_ACCESS_KEY_ID=${{ env.AWS_ACCESS_KEY_ID }}" -var "AWS_SECRET_ACCESS_KEY=${{ env.AWS_SECRET_ACCESS_KEY }}" -var "AWS_SESSION_TOKEN=${{ env.AWS_SESSION_TOKEN }}" -var "AWS_REGION=${{ env.AWS_REGION }}" -var "SG_ID=${{ secrets.SG_ID }}"  -var "SUBNET_AZ_1=${{ secrets.SUBNET_AZ_1 }}" -var "SUBNET_AZ_2=${{ secrets.SUBNET_AZ_2 }}" -var "PRIVATE_SUBNET_1=${{ secrets.PRIVATE_SUBNET_1 }}"  -var "PRIVATE_SUBNET_2=${{ secrets.PRIVATE_SUBNET_2 }}"
