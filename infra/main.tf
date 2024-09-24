@@ -43,6 +43,7 @@ resource "aws_api_gateway_integration" "mock_integration" {
   http_method = aws_api_gateway_method.gtw_method.http_method
 
   type = "MOCK"
+  passthrough_behavior = "WHEN_NO_MATCH"
 }
 
 #resource "aws_apigatewayv2_vpc_link" "fastfood_gtw_vpc_link" {
