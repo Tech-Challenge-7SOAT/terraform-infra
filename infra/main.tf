@@ -37,7 +37,7 @@ resource "aws_api_gateway_method" "gtw_method" {
   authorizer_id = aws_api_gateway_authorizer.lambda_authorizer.id
 }
 
-resource "aws_api_gateway_integration" "mock_integration" {
+resource "aws_api_gateway_integration" "mock_integration" { // Apagar quando tiver o EKS pronto e descomentar os valores abaixo
   rest_api_id = aws_api_gateway_rest_api.fastfood_api_gtw.id
   resource_id = aws_api_gateway_resource.gtw_resource.id
   http_method = aws_api_gateway_method.gtw_method.http_method
@@ -56,7 +56,8 @@ resource "aws_api_gateway_integration" "mock_integration" {
 #  security_group_ids = [var.SG_ID]
 #  subnet_ids = [var.SUBNET_AZ_1, var.SUBNET_AZ_2, var.PRIVATE_SUBNET_1, var.PRIVATE_SUBNET_2]
 #
-#  target_arns = [var.NLB_LISTENER]
+#  target_arns = [var.NLB_LISTENER] //Colocar o valor dessa secret no github quando tiver o NLB
+# // adicionar -var "NLB_LISTENER=${{ secrets.NLB_LISTENER }}" no comando de deploy do arquivo deploy.yml
 #
 #  tags = {
 #    Name = "fastfood_gtw_vpc_link"
