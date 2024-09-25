@@ -43,14 +43,9 @@ resource "aws_api_gateway_integration" "mock_integration" { // Apagar quando tiv
   http_method = aws_api_gateway_method.gtw_method.http_method
 
   type = "MOCK"
-  passthrough_behavior = "WHEN_NO_MATCH"
 
   request_templates = {
     "application/json" = "{\"statusCode\": 200}"
-  }
-
-  response_templates = {
-    "application/json" = ""
   }
 }
 
