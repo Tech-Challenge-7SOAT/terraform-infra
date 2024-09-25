@@ -45,7 +45,7 @@ resource "aws_api_gateway_integration" "mock_integration" { // Apagar quando tiv
   type = "MOCK"
 
   request_templates = {
-    "application/json" = ""
+    "application/json" = "Empty"
   }
 }
 
@@ -63,7 +63,7 @@ resource "aws_api_gateway_integration_response" "response_integ_mock" {
   status_code = aws_api_gateway_method_response.response_200.status_code
 
   response_templates = {
-    "application/json" = ""
+    "application/json" = "Empty"
   }
 }
 
