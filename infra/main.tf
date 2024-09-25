@@ -48,6 +48,10 @@ resource "aws_api_gateway_integration" "mock_integration" { // Apagar quando tiv
   request_templates = {
     "application/json" = "{\"statusCode\": 200}"
   }
+
+  response_templates = {
+    "application/json" = ""
+  }
 }
 
 #resource "aws_apigatewayv2_vpc_link" "fastfood_gtw_vpc_link" {
