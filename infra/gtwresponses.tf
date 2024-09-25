@@ -22,6 +22,8 @@ resource "aws_api_gateway_integration_response" "integration_response" {
   http_method = aws_api_gateway_method.gtw_method.http_method
   status_code = var.status_codes[count.index]
 
+  selection_pattern = count.index == 0 ? "default" : "^${var.status_codes[count.index]}"
+
   response_templates = {
     "application/json" = ""
   }
