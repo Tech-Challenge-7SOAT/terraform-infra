@@ -48,6 +48,12 @@ variable "PRIVATE_SUBNET_2" {
 #  type = string
 #}
 
+variable "status_codes" {
+  description = "List of HTTP status codes"
+  type        = list(string)
+  default     = ["200", "400", "500"]
+}
+
 variable "api_name" {
   description = "The name of the API"
   type = string
