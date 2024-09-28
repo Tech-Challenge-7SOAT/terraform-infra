@@ -51,7 +51,6 @@ resource "aws_api_gateway_integration" "gtw_integration" { // Apagar quando tive
   }
 }
 
-
 #resource "aws_apigatewayv2_vpc_link" "fastfood_gtw_vpc_link" {
 #  name        = "${var.api_name}-vpc_link"
 #
@@ -80,6 +79,10 @@ resource "aws_api_gateway_integration" "gtw_integration" { // Apagar quando tive
 #  connection_id   = aws_apigatewayv2_vpc_link.fastfood_gtw_vpc_link.id
 #
 #  passthrough_behavior = "WHEN_NO_MATCH"
+#
+#  request_templates = {
+#    "application/json" = "{\"statusCode\": 200}"
+#  }
 #}
 
 resource "aws_api_gateway_deployment" "api_deployment" {
