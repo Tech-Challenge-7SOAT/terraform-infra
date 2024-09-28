@@ -31,7 +31,7 @@ resource "aws_api_gateway_integration_response" "response_integ_403" {
   http_method = aws_api_gateway_method.gtw_method.http_method
   status_code = aws_api_gateway_method_response.response_403.status_code
 
-  selection_pattern = "403"
+  selection_pattern = "Deny"
 
   response_templates = {
     "application/json" = ""
